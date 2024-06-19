@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Profil from './profil'
 
 const Login = (props) => {
   const [email, setEmail] = useState('')
@@ -35,7 +36,9 @@ const Login = (props) => {
       return
     }
   
-    // Authentication calls will be made here...
+    if(email == "admin@gmail.com" && password == "test123"){
+      navigate('/profil')
+    }
   }
 
   return (
