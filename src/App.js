@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './home'
 import Login from './login'
+import Profil from './profil'
 import './App.css'
 import { useEffect, useState } from 'react'
 
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+          <Route path='/profil' element={<Profil email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}/>
         </Routes>
       </BrowserRouter>
     </div>
