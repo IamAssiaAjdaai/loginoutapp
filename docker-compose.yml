@@ -5,9 +5,22 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "3000:3000"
     volumes:
       - .:/app
+    networks:
+      - app-network
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: assianikolay
+      MYSQL_DATABASE: pwadb
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: test1234
+    ports:
+      - "3306:3306"
     networks:
       - app-network
 
