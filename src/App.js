@@ -4,6 +4,7 @@ import Login from './login'
 import Profil from './profil'
 import './App.css'
 import { useEffect, useState } from 'react'
+import Employees from './Employees';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
