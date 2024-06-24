@@ -1,10 +1,20 @@
+import React from 'react'
+import {useLocation} from 'react-router-dom';
+
 const Profil = () => {
+  const location = useLocation();
+  const user = location.state ? JSON.parse(location.state.pass) : null
   return (
-    <div className="mainContainer" style={{ color: 'black', backgroundColor: 'white' }}>
-      <div className="titleContainer">
-        <div>Welcome!</div>
-      </div>
-      <div>This is the home page.</div>
+    <div>
+      {user ? (
+        <div>
+          <h1>{user.name}</h1>
+          <p>{user.email}</p>
+          {/* Render other user details here */}
+        </div>
+      ) : (
+        <p>No user data available</p>
+      )}
     </div>
   );
 };

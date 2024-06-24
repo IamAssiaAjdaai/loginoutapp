@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Profil from './profil'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
+
 
 const Login = (props) => {
   const [email, setEmail] = useState('')
@@ -40,20 +40,28 @@ const Login = (props) => {
   
     try {
       // Make API call to authenticate user
-      const res = await axios.get('http://localhost:5094/api/Employees/GetEmployee', {
+      const res = await axios.get('https://localhost:44390/api/Employees/GetEmployees', {
         params: {
           email: email,
           password: password
         }
       });
-      // Assuming your backend returns a success message or user data upon successful login
-      if (res.data.success) {
-        // Redirect to profile page upon successful login
+      if (res.data.find(({email}) => email === email).email && res.data.find(({password_em}) => password_em === password).password_em) 
+      {
+        const user = res.data.find(({email}) => email === email);
+        <Link
+        to={{
+          pathname: '/profil',
+          state: { pass: JSON.stringify(user) }
+        }}
+        >
+        Profile
+        </Link>
         navigate('/profil');
-      } else {
-        // Handle invalid credentials or other errors
-        // Example: setPasswordError('Invalid credentials');
-        console.log(res.data.error); // Log the error message from backend
+      } 
+      else 
+      {
+        console.log(res.data.error);
       }
     } catch (error) {
       console.error('Login error:', error.message);
