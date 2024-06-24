@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, Form } from 'react-router-dom'
 import axios from 'axios';
 
 
@@ -8,10 +8,11 @@ const Login = (props) => {
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
-  const [employees, setEmployees] = useState([]);
-
   const navigate = useNavigate()
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  
   const onButtonClick = async () => {
     // Set initial error values to empty
     setEmailError('')
@@ -37,7 +38,24 @@ const Login = (props) => {
       setPasswordError('The password must be 8 characters or longer')
       return;
     }
-  
+  }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('/api/login', { email, password });
+      const user = response.data;
+
+      // Navigate to the profile page and pass user data
+      navigate.push({
+        pathname: '/profil',
+        state: { user }
+      });
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
+
     try {
       // Make API call to authenticate user
       const res = await axios.get('https://localhost:44390/api/Employees/GetEmployees', {
@@ -69,6 +87,7 @@ const Login = (props) => {
   };
 
   return (
+    <Form onSubmit={handleLogin}>
     <div className={'mainContainer'}>
       <div className={'titleContainer'}>
         <div>Login</div>
@@ -96,9 +115,10 @@ const Login = (props) => {
       </div>
       <br />
       <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
+        <button className={'inputButton'} type="submit"> Log in</button>
       </div>
     </div>
+    </Form>
   )
 }
 
