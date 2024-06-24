@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Form } from "formik";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/login', { email, password });
+      const response = await axios.post('https://localhost:44390/api/Employees/GetEmployees', { email, password });
       const user = response.data;
 
       // Navigate to the profile page and pass user data
